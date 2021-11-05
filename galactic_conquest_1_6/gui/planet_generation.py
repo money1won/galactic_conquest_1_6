@@ -48,7 +48,6 @@ def add_planets_to_map(file, application):
 
         # Determine Factions of the planets
         _player = choice(file.players)
-        print(type(_player.faction))
         _faction = _player.faction
         file.planets[currently_generated_planet].faction = _faction
 

@@ -2,6 +2,7 @@ from galactic_conquest_1_6.game.defaults.planet_default import PlanetTemplate
 from galactic_conquest_1_6.game.defaults.faction_default import FactionTemplate
 from galactic_conquest_1_6.game.defaults.player_default import PlayerTemplate
 from galactic_conquest_1_6.game.turn_manager import TurnManager
+from galactic_conquest_1_6.data.initialize_start_conditions import create_starting_factions
 from random import choice
 
 # available colors here:
@@ -15,31 +16,30 @@ class File:
 
         # Faction pool
         self.factions = []
-
-        self.factions.append(FactionTemplate())
-        self.factions[0].name = "Galactic Alliance"
-        self.factions[0].owning_player = None
-        self.factions[0].color = 'DarkGreen'
-
-        self.factions.append(FactionTemplate())
-        self.factions[1].name = "Rebellion"
-        self.factions[1].owning_player = None
-        self.factions[1].color = 'DarkRed'
+        self.factions = create_starting_factions(self)
 
         # A player is defined as a human or AI that controls a united group
-        self.total_players_generated = 2
+        self.total_players_generated = 3
         self.human_players = 1
 
+        _used_factions = []
         if self.human_players >= 1:
             self.players.append(PlayerTemplate(False))
+            # Assign player 0 (you) as the galactic alliance for testing purposes
             self.players[0].faction = self.factions[0]
-            print(self.players[0].faction)
+            _used_factions.append(self.players[0].faction.name)
             #self.players[0].faction.name = "Galactic Alliance"
 
-        for index in range(0, self.total_players_generated-self.human_players):
+        # Generate AI players
+        for _index in range(0, self.total_players_generated-self.human_players):
             self.players.append(PlayerTemplate())
-            self.players[index+self.human_players].faction = self.factions[1]
-            pass
+            _check = True
+            while _check:
+                self.players[_index+self.human_players].faction = choice(self.factions)
+                if self.players[_index+self.human_players].faction.name not in _used_factions:
+                    _check = False
+                    _used_factions.append(self.players[_index+self.human_players].faction.name)
+
 
 
         # Instantiate the planets

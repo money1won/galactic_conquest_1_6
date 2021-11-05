@@ -21,13 +21,17 @@ class TurnManager:
         return _order
 
     def iterate_turns(self, file):
+        # If turn manager has played through all players, start back at player 0's turn
         if self.current_player == file.total_players_generated-1:
             self.current_player = 0
+        # Otherwise iterate to the next player in the queue
         else:
             self.current_player += 1
+        # If controller is human
         if self.order[self.current_player].controller == PlayerTemplate.HumanController:
             # find out if you're that player and enable all buttons
             print("player's turn!")
+        # If controller is AI
         else:
             # disable all buttons and rotate through the AI
             print("AI's turn: " + str(self.current_player))

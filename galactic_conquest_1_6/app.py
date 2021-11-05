@@ -13,7 +13,6 @@ from time import sleep
 
 def main():
     file = File()
-    print(file.planets[0].faction.name)
     load_interface(file)
 
 
@@ -29,6 +28,6 @@ def updateUI(base_file = True, planet_file = False):
 
         # subprocess.run(['ls', '-al'])
 
-# if __name__ == "__main__":
-updateUI()
-main()
+if __name__ == "__main__":
+    updateUI()
+    main()

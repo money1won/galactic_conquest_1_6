@@ -5,13 +5,19 @@ from galactic_conquest_1_6.game.defaults.faction_default import FactionTemplate
 
 def create_starting_garrisons(file):
     for _planet in file.planets:
-        _num_starting_units = randint(0, 3)
+        # Changes how many units will be on the planet by default
+        min_garrisons = 0
+        max_garrisons = 3
+        _num_starting_units = randint(min_garrisons, max_garrisons)
+
         _faction = _planet.faction
         for _num in range(_num_starting_units):
-            _unit = spawn_garrison(file, _planet, _planet.faction, randint(500, 600))
-            # print(_unit.name + " made on " + _planet.name + " of faction " + _planet.faction.name + " P:U " + _unit.faction.name)
+            _unit = spawn_garrison(file, _planet, _planet.faction, soldiers=randint(500, 600))
+            # print(_unit.name + " made on " + _planet.name + " of faction " + _planet.faction.name +
+            # " P:U " + _unit.faction.name)
 
 def create_starting_factions(file):
+    # Creates the pool of possible factions that exist. When the game starts, it will randomly pick ones for the AI
     file.factions.append(FactionTemplate())
     file.factions[0].name = "Galactic Alliance"
     file.factions[0].owning_player = None

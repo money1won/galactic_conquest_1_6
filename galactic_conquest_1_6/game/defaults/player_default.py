@@ -1,4 +1,6 @@
 
+from galactic_conquest_1_6.game.ai.basic_ai import BasicAI
+
 class PlayerTemplate:
     def __init__(self, AI_Bot = True):
         self.ai_player = AI_Bot

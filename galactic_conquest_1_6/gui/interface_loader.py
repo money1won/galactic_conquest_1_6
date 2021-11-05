@@ -17,9 +17,7 @@ def load_interface(file):
     file.application = application
 
     # Generate planets
-    print(file.planets[0].faction.name)
     add_planets_to_map(file, file.application.ui)
-    print(file.planets[0].faction.name)
     update_map(file)
 
     # Create initial garrison units for the map

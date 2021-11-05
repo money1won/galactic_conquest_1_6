@@ -1,5 +1,6 @@
 from random import *
 
+
 class UnitTemplate:
     def __init__(self):
         self.soldiers = randint(100, 2000)
